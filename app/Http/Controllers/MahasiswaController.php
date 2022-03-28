@@ -21,12 +21,14 @@ class MahasiswaController extends Controller
         // $mahasiswa = Mahasiswa::all();
         // $paginate = Mahasiswa::orderBy('id_mahasiswa', 'asc')->paginate(3);
         // return view('mahasiswa.index',['mahasiswa'=>$mahasiswa, 'paginate'=>$paginate]);
+
+
         
-        //mengambil data dari tabel mahasiswa
-        $mahasiswa = DB::table('mahasiswa')->paginate(4);
         
-        //mengirim data mahasiswa ke view index
-        return view('mahasiswa.index',['mahasiswa'=>$mahasiswa]);
+        $mahasiswa = DB::table('mahasiswa')->paginate(4); //mengambil data dari tabel mahasiswa
+        
+       
+        return view('mahasiswa.index',['mahasiswa'=>$mahasiswa]);  //mengirim data mahasiswa ke view index
     }
 
     /**
@@ -53,6 +55,7 @@ class MahasiswaController extends Controller
             'Nama'=>'required',
             'Kelas'=>'required',
             'Jurusan'=>'required',
+
             'Email'=>'required',
             'Alamat'=>'required',
             'Tanggal_Lahir'=>'required',
@@ -107,6 +110,7 @@ class MahasiswaController extends Controller
             'Nama'=>'required',
             'Kelas'=>'required',
             'Jurusan'=>'required',
+
             'Email'=>'required',
             'Alamat'=>'required',
             'Tanggal_Lahir'=>'required',
@@ -119,6 +123,7 @@ class MahasiswaController extends Controller
                 'nama'=>$request->Nama,
                 'kelas'=>$request->Kelas,
                 'jurusan'=>$request->Jurusan,
+
                 'email'=>$request->Email,
                 'alamat'=>$request->Alamat,
                 'tanggal_lahir'=>$request->Tanggal_Lahir,
@@ -143,17 +148,18 @@ class MahasiswaController extends Controller
             -> with('success', 'Mahasiswa Berhasil Dihapus');
     }
 
+
     public function cari(Request $request)
     {
-        //menangkap data pencarian
-        $cari = $request->cari;
+       
+        $cari = $request->cari;  //menangkap data pencarian
 
-        //mengambil data dari table guru sesuai pencarian data
-        $mahasiswa = DB::table('mahasiswa')
+        
+        $mahasiswa = DB::table('mahasiswa') //mengambil data dari table guru sesuai pencarian data
         ->where('nama','like',"%".$cari."%")
         ->paginate();
 
-        //mengirim data ke view index   
-        return view('mahasiswa.index',['mahasiswa'=>$mahasiswa]);
+        
+        return view('mahasiswa.index',['mahasiswa'=>$mahasiswa]); //mengirim data ke view index   
     }
 };
