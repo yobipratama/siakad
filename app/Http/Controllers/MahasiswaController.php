@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -25,10 +26,11 @@ class MahasiswaController extends Controller
 
         
         
-        $mahasiswa = DB::table('mahasiswa')->paginate(4); //mengambil data dari tabel mahasiswa
+        $mahasiswa = Mahasiswa::with('kelas')->get();
+        $paginate = Mahasiswa::orderBy('id_mahasiswa', 'asc')->paginate(3);
+        return view('mahasiswa.index', ['mahasiswa' => $mahasiswa, 'paginate'=>$paginate]);
         
        
-        return view('mahasiswa.index',['mahasiswa'=>$mahasiswa]);  //mengirim data mahasiswa ke view index
     }
 
     /**
